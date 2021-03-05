@@ -39,7 +39,11 @@ export class AuthController {
     )
     )
     uploadAvatar(@Param('id') id, @UploadedFile() file) {
+      
+      console.log("hh");
       this.userService.setAvatar(Number(id), `${this.SERVER_URL}${file.path}`);
+    
+
     }
 
 

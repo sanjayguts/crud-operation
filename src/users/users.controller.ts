@@ -4,6 +4,9 @@ import { User } from  './users.entity';
 import { Post,Put, Delete, Body, Param } from  '@nestjs/common';
 import { UserDto } from './dto/createuser.dto';
 import { UpdateDto } from './dto/createuser.dto'
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UseInterceptors, UploadedFile } from  '@nestjs/common';
+
 
 @Controller('users')
 export class UsersController {
@@ -20,6 +23,13 @@ async create(@Body (new ValidationPipe ) createuserto:UserDto):Promise<any>{
 @Get()
     index(): Promise<User[]> {
       return this.usersService.findAll();
+    }
+
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file'))
+    uploadFile(@UploadedFile() file) {
+      
+      console.log(file);
     }
 
 
